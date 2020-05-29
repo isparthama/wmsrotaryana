@@ -529,7 +529,7 @@
 				</textElement>
 				<text><![CDATA[Tanggal Cetak :]]></text>
 			</staticText>
-			<textField evaluationTime="Report" isBlankWhenNull="false">
+			<textField evaluationTime="Group" evaluationGroup="docnum" isBlankWhenNull="false">
 				<reportElement key="textField-3" x="47" y="0" width="43" height="14"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
