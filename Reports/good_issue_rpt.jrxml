@@ -31,9 +31,9 @@
 	<field name="custmrcode" class="java.lang.String"/>
 	<field name="tglQ" class="java.lang.String"/>
 	<field name="goodsreceiptdetail1_itemCode" class="java.lang.String"/>
-	<field name="goodsreceiptdetail1_quantity" class="java.math.BigDecimal"/>
-	<field name="goodsreceiptdetail1_price" class="java.math.BigDecimal"/>
-	<field name="goodsreceiptdetail1_lineTotal" class="java.math.BigDecimal"/>
+	<field name="goodsreceiptdetail1_quantity" class="java.lang.Double"/>
+	<field name="goodsreceiptdetail1_price" class="java.lang.Double"/>
+	<field name="goodsreceiptdetail1_lineTotal" class="java.lang.Double"/>
 	<field name="item_dscription" class="java.lang.String"/>
 	<field name="goodsreceipt_custmrCode" class="java.lang.String"/>
 	<field name="goodsreceipt_shipToCode" class="java.lang.String"/>
