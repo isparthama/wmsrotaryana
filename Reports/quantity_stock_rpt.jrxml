@@ -267,7 +267,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{brandcode}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{branddesc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField" isPrintRepeatedValues="false" x="0" y="0" width="30" height="18"/>
