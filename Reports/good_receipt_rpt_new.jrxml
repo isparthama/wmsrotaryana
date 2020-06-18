@@ -127,7 +127,7 @@
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="136" splitType="Stretch">
+		<band height="70" splitType="Stretch">
 			<staticText>
 				<reportElement key="staticText-4" x="329" y="32" width="80" height="14"/>
 				<box>
