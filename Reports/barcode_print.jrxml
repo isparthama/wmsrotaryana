@@ -27,32 +27,32 @@
 	<detail>
 		<band height="92" splitType="Stretch">
 			<componentElement>
-				<reportElement mode="Opaque" x="0" y="38" width="215" height="35"/>
+				<reportElement mode="Opaque" x="1" y="34" width="214" height="28"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128B" drawText="false" checksumRequired="false" barWidth="1" barHeight="1">
 					<jr:codeExpression><![CDATA[$F{itemcode}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
-			<textField>
-				<reportElement x="0" y="73" width="215" height="19"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="1" y="62" width="215" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="146" height="19"/>
+				<reportElement x="0" y="0" width="146" height="15"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{brandName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="19" width="214" height="19"/>
+				<reportElement x="1" y="15" width="214" height="19"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemcode}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MMM-yy">
-				<reportElement x="146" y="0" width="69" height="19"/>
+				<reportElement x="146" y="0" width="69" height="15"/>
 				<textElement textAlignment="Right">
 					<font isBold="false" isItalic="false"/>
 				</textElement>
