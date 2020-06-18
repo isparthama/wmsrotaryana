@@ -159,7 +159,7 @@ ORDER BY trxno,g.docDate,g.docNum]]>
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="78" splitType="Stretch">
+		<band height="66" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="1" width="291" height="20"/>
 				<textElement verticalAlignment="Middle">

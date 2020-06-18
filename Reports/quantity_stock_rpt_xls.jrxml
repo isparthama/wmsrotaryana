@@ -20,13 +20,14 @@
 	<queryString>
 		<![CDATA[CALL sp_quantity_stock_rpt($P{optDtlCode},$P{whsCode});]]>
 	</queryString>
-	<field name="tanda" class="java.lang.Boolean"/>
+	<field name="tanda" class="java.lang.Integer"/>
 	<field name="brandcode" class="java.lang.String"/>
 	<field name="branddesc" class="java.lang.String"/>
 	<field name="itemCode" class="java.lang.String"/>
 	<field name="itemName" class="java.lang.String"/>
 	<field name="brandgab" class="java.lang.String"/>
 	<field name="pricecode" class="java.lang.String"/>
+	<field name="pricename" class="java.lang.String"/>
 	<field name="price" class="java.lang.Double"/>
 	<field name="adakey" class="java.lang.String"/>
 	<variable name="no" class="java.lang.Integer" calculation="DistinctCount">
@@ -47,6 +48,7 @@
 	<variable name="GTotStock" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{price}]]></variableExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{price}!=0]]></filterExpression>
 	<group name="BrandCode">
 		<groupExpression><![CDATA[$F{brandcode}]]></groupExpression>
 		<groupHeader>
@@ -130,8 +132,8 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[WhsCode]]></text>
+				<textElement/>
+				<text><![CDATA[Warehouse]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -210,10 +212,10 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["W:"+$F{pricecode}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pricename}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
