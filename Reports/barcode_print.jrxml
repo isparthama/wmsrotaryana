@@ -33,7 +33,7 @@
 				</jr:barbecue>
 			</componentElement>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="1" y="62" width="215" height="30" isPrintWhenDetailOverflows="true"/>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="66" width="215" height="26" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Left" rotation="None">
 					<font size="10"/>
 				</textElement>
