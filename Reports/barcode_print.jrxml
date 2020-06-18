@@ -34,8 +34,8 @@
 			</componentElement>
 			<textField isStretchWithOverflow="true">
 				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="62" width="215" height="30" isPrintWhenDetailOverflows="true"/>
-				<textElement textAlignment="Left" rotation="None">
-					<font size="10"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemName}]]></textFieldExpression>
 			</textField>

@@ -427,7 +427,7 @@ ORDER BY trxno,g.docDate,g.docNum]]>
 		<band height="12" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="77" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<line>
 				<reportElement x="2" y="0" width="555" height="1" forecolor="#999999"/>
 				<graphicElement>
