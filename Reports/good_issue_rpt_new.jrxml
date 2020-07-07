@@ -197,28 +197,28 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$V{head}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="50" width="291" height="15"/>
+				<reportElement x="0" y="50" width="283" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{phonefax}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="291" height="20"/>
+				<reportElement x="0" y="0" width="283" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{cmpnyID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="35" width="291" height="15"/>
+				<reportElement x="0" y="35" width="283" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{city}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="20" width="291" height="15"/>
+				<reportElement x="0" y="20" width="283" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

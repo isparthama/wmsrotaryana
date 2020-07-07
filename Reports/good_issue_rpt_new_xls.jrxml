@@ -122,7 +122,7 @@
 				<text><![CDATA[Kd. Barang]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-8" x="305" y="7" width="134" height="15"/>
+				<reportElement key="staticText-8" x="305" y="7" width="136" height="15"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -174,7 +174,7 @@
 				<text><![CDATA[Supplier]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-9" x="439" y="7" width="57" height="15"/>
+				<reportElement key="staticText-9" x="441" y="7" width="55" height="15"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -191,7 +191,7 @@
 	<detail>
 		<band height="18" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField" x="305" y="0" width="134" height="18"/>
+				<reportElement key="textField" x="305" y="0" width="136" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -269,7 +269,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{customer_custmrName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField" x="439" y="0" width="57" height="18"/>
+				<reportElement key="textField" x="441" y="0" width="55" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
