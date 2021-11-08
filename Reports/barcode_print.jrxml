@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="barcode_print" language="groovy" pageWidth="269" pageHeight="141" columnWidth="215" leftMargin="34" rightMargin="20" topMargin="20" bottomMargin="28">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="barcode_print" language="groovy" pageWidth="269" pageHeight="141" columnWidth="215" leftMargin="34" rightMargin="20" topMargin="20" bottomMargin="28" uuid="94269b3c-1667-45f2-a12f-5f5fc7b57ff8">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,6 +7,7 @@
 	<queryString>
 		<![CDATA[CALL sp_barcode_print_rpt($P{sauditUser});]]>
 	</queryString>
+	<field name="cmpnyID" class="java.lang.String"/>
 	<field name="itemcode" class="java.lang.String"/>
 	<field name="itemName" class="java.lang.String"/>
 	<field name="optdtlcode" class="java.lang.String"/>
@@ -27,36 +28,43 @@
 	<detail>
 		<band height="92" splitType="Stretch">
 			<componentElement>
-				<reportElement mode="Opaque" x="1" y="34" width="214" height="28"/>
+				<reportElement uuid="ed2a0fc5-1785-45cf-a552-542bdeacfe7a" mode="Opaque" x="1" y="34" width="214" height="28"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128B" drawText="false" checksumRequired="false" barWidth="1" barHeight="1">
 					<jr:codeExpression><![CDATA[$F{itemcode}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="62" width="215" height="30" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="d24e1bfb-3d3a-4b4d-8376-10c52eb88360" stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="62" width="215" height="30" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Center" rotation="None">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{itemName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="146" height="15"/>
+				<reportElement uuid="596b735c-de90-49f3-8e1b-9b09a811d6e2" x="0" y="0" width="146" height="15"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{brandName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{brandName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="15" width="214" height="19"/>
+				<reportElement uuid="5ddfd4b6-f301-463c-9af6-85be82fe9743" x="1" y="15" width="214" height="19"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemcode}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{itemcode}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MMM-yy">
-				<reportElement x="146" y="0" width="69" height="15"/>
+				<reportElement uuid="ed9181cf-2818-430a-8307-6f128e40be96" x="146" y="0" width="69" height="15"/>
 				<textElement textAlignment="Right">
 					<font isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{tglcetak}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tglcetak}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0dd3d91d-fe5a-4ca7-b5f3-f4581edfc208" x="-20" y="-16" width="57" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cmpnyID}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
