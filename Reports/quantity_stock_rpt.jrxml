@@ -88,7 +88,7 @@
 						<pen lineWidth="1.0" lineStyle="Dotted"/>
 					</graphicElement>
 				</line>
-				<textField pattern="###0" isBlankWhenNull="false">
+				<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="false">
 					<reportElement key="textField" x="412" y="6" width="85" height="18"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -101,7 +101,7 @@
 					</textElement>
 					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SubTotUnt}]]></textFieldExpression>
 				</textField>
-				<textField pattern="###0" isBlankWhenNull="false">
+				<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="false">
 					<reportElement key="textField" x="497" y="6" width="54" height="18"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -252,7 +252,7 @@
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
-			<textField isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField" isPrintRepeatedValues="false" x="192" y="0" width="220" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -265,7 +265,7 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemName}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField" isPrintRepeatedValues="false" x="120" y="0" width="72" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -278,7 +278,7 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemCode}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0" isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
 				<reportElement key="textField" x="497" y="0" width="54" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -291,7 +291,7 @@
 				</textElement>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0" isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="false">
 				<reportElement key="textField" x="30" y="0" width="90" height="18">
 					<printWhenExpression><![CDATA[$F{tanda}]]></printWhenExpression>
 				</reportElement>
@@ -306,7 +306,7 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{branddesc}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField" isPrintRepeatedValues="false" x="0" y="0" width="30" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -319,7 +319,7 @@
 				</textElement>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{no}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0" isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
 				<reportElement key="textField" x="412" y="0" width="85" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
