@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stock_card_wms" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stock_card_wms" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="33bb92f5-11da-4c3b-83ee-4944d601e8af">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -11,40 +11,10 @@
 	<parameter name="docdateTo" class="java.lang.String"/>
 	<parameter name="sortby" class="java.lang.String"/>
 	<parameter name="audituser" class="java.lang.String"/>
+	<parameter name="docnumFr" class="java.lang.String"/>
+	<parameter name="docnumTo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT 	CONCAT(p.cmpnyName,'(',p.cmpnyID,')') cmpnyID,p.address,p.city,p.zipCode, CONCAT('Phone : ',phone1,' ',phone2 ,'Fax : ',fax) AS phonefax,
-	CONCAT(DATE_FORMAT(DATE($P{docdateFr}),'%d-%m-%Y'),' to ',DATE_FORMAT(DATE($P{docdateTo}),'%d-%m-%Y')) AS dateFilter,
-	a.whsCode,CONCAT(a.whsCode,'-',w.dscription) whsCodeku, a.itemCode,i.dscription itemName, SUM(a.totQty) AS totQty,a.refDocNum,
-
-	IF($P{sortby}='1',a.custmrCode,a.whsCode) sortby1,IF($P{sortby}='1','Customer : ','Warehouse : ') txtsortby1,
-	IF($P{sortby}='1',a.whsCode,a.custmrCode) sortby2,IF($P{sortby}='2','CustmrCode','WhsCode : ') txtsortby2,
-	IF($P{sortby}='1',a.custmrCode,a.whsCode) sortby1,IF($P{sortby}='1',CONCAT(a.custmrCode,'-',c.custmrName),CONCAT(a.whsCode,'-',w.dscription)) sortby1desc,
-	IF($P{sortby}='1',a.whsCode,a.custmrCode) sortby2,IF($P{sortby}='2',a.custmrCode,a.whsCode) sortby2desc,
-
-CONCAT(@custmrcodeFr ,' To ', @custmrcodeTo) AS custmrfilter,
-CONCAT(@whscodeFr ,' To ', @whscodeTo) AS whscodefilter
-
-FROM
-(
-SELECT a.custmrcode,a1.whscode,a1.itemCode,SUM(quantity) totqty,GROUP_CONCAT(a.docNum) AS refDocNum
-FROM  goodsreceipt a
-INNER JOIN goodsreceiptdetail1 a1 ON a.docEntry=a1.docEntry
-,
-(SELECT @custmrcodeFr:=IF($P{custmrcodeFr}='',MIN(custmrcode),$P{custmrcodeFr}),@custmrcodeTo:=IF($P{custmrcodeTo}='',MAX(custmrcode),$P{custmrcodeTo}),
-	@docdateFr:=IF($P{docdateFr}='',MIN(docdate),$P{docdateFr}),@docdateTo:=IF($P{docdateTo}='',MAX(docdate),$P{docdateTo})
-
-  FROM goodsreceipt) aa,
-(SELECT @whscodeFr:=IF($P{whsCodeFr}='',MIN(whscode),$P{whsCodeFr}),@whscodeTo:=IF($P{whsCodeTo}='',MAX(whscode),$P{whsCodeTo}) FROM warehouse) bb
-WHERE a.docDate BETWEEN $P{docdateFr} AND $P{docdateTo} AND a1.whsCode BETWEEN @whscodeFr AND @whscodeTo AND
-	a.custmrCode BETWEEN @custmrcodeFr AND @custmrcodeTo
-GROUP BY a1.itemCode
-) AS a
-INNER JOIN item i ON a.itemCode=i.itemCode
-INNER JOIN warehouse w ON w.whsCode=a.whsCode
-INNER JOIN customer  c ON a.custmrcode=c.custmrcode,
-preference p
-
-GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
+		<![CDATA[CALL sp_grcp_detail_wms_rpt($P{whsCodeFr},$P{whsCodeTo},$P{custmrcodeFr},$P{custmrcodeTo},$P{docdateFr},$P{docdateTo},$P{docnumFr},$P{docnumTo})]]>
 	</queryString>
 	<field name="cmpnyID" class="java.lang.String"/>
 	<field name="address" class="java.lang.String"/>
@@ -83,42 +53,42 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 		<groupHeader>
 			<band height="20">
 				<textField>
-					<reportElement x="1" y="0" width="76" height="20"/>
+					<reportElement uuid="e2a14034-9b79-4b10-81c0-3deeac9f3265" x="1" y="0" width="76" height="20"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{txtsortby1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{txtsortby1}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="77" y="0" width="319" height="20"/>
+					<reportElement uuid="ec058a81-5d54-43a2-85a7-d69492ccf797" x="77" y="0" width="319" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{sortby1desc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{sortby1desc}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="20">
 				<line>
-					<reportElement x="2" y="0" width="555" height="1" forecolor="#999999"/>
+					<reportElement uuid="8574cd07-275d-400e-a9e3-599c45815d3a" x="2" y="0" width="555" height="1" forecolor="#999999"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</line>
 				<staticText>
-					<reportElement x="292" y="0" width="91" height="20"/>
+					<reportElement uuid="30e8a945-892d-496d-9fd0-0bfd9bb29ca9" x="292" y="0" width="91" height="20"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Grand Total : ]]></text>
 				</staticText>
 				<textField pattern="#,##0">
-					<reportElement x="383" y="0" width="52" height="20"/>
+					<reportElement uuid="ee28219e-53be-4967-a5b0-c199a34ab363" x="383" y="0" width="52" height="20"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Number"><![CDATA[$V{totalQty1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{totalQty1}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -131,24 +101,24 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 		<groupFooter>
 			<band height="21">
 				<line>
-					<reportElement x="1" y="0" width="555" height="1" forecolor="#999999"/>
+					<reportElement uuid="1f5e6358-f539-43c0-aef4-6755b21352e1" x="1" y="0" width="555" height="1" forecolor="#999999"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</line>
 				<staticText>
-					<reportElement x="292" y="1" width="91" height="20"/>
+					<reportElement uuid="dd20ef29-342f-4fec-ba45-e0f78dcaa50c" x="292" y="1" width="91" height="20"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Sub Total : ]]></text>
 				</staticText>
 				<textField pattern="#,##0">
-					<reportElement x="383" y="0" width="52" height="20"/>
+					<reportElement uuid="b6c1838f-1e0a-45ad-9407-de49f2586344" x="383" y="0" width="52" height="20"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Number"><![CDATA[$V{totalQty2}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{totalQty2}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -168,199 +138,199 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 	<pageHeader>
 		<band height="66" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="1" width="291" height="20"/>
+				<reportElement uuid="6f4d5a64-a7b5-4893-bea8-124491b769e2" x="0" y="1" width="291" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{cmpnyID}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cmpnyID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="21" width="291" height="15"/>
+				<reportElement uuid="ebd5399d-78fd-47d3-a182-f61f955bdbbc" x="0" y="21" width="291" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="-469" y="-34" width="291" height="15"/>
+				<reportElement uuid="6d0bc85f-ef2e-4c6d-8279-d77ff6bdddc1" x="-469" y="-34" width="291" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{city}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="51" width="291" height="15"/>
+				<reportElement uuid="af4ce4b5-ae2e-46ad-b7ac-31aee55c6819" x="0" y="51" width="291" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{phonefax}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{phonefax}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="291" y="0" width="266" height="66"/>
+				<reportElement uuid="9bfa849e-208e-4564-856f-31a96f65ecbe" x="291" y="0" width="266" height="66"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[In Coming Summary By Product]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="36" width="291" height="15"/>
+				<reportElement uuid="3e5b6610-5a70-43e7-a77c-32f60f489e90" x="0" y="36" width="291" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{city}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="80" splitType="Stretch">
 			<textField pattern="#,##0">
-				<reportElement x="81" y="31" width="474" height="15"/>
+				<reportElement uuid="0f9f2d76-492c-4ba6-bea5-46f7135ac756" x="81" y="31" width="474" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{whscodefilter}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{whscodefilter}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="81" y="60" width="76" height="20"/>
+				<reportElement uuid="ae4d6918-b9ca-46e0-a34b-cf6603f71c2e" x="81" y="60" width="76" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Item Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="157" y="60" width="217" height="20"/>
+				<reportElement uuid="5be6e195-34d0-4909-9bbd-f919d6889dc8" x="157" y="60" width="217" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Item Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="383" y="60" width="53" height="20"/>
+				<reportElement uuid="b80db417-7567-4366-b795-c323aaf5ff19" x="383" y="60" width="53" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Total.Qty]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="445" y="60" width="110" height="20"/>
+				<reportElement uuid="1af9beb1-bcbb-45a5-9032-a082f41b8d83" x="445" y="60" width="110" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Ref. Document. No]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="79" width="555" height="1" forecolor="#999999"/>
+				<reportElement uuid="4d59d30e-e13b-475e-a6b8-4fa8ce3e8660" x="0" y="79" width="555" height="1" forecolor="#999999"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="0" y="45" width="81" height="15"/>
+				<reportElement uuid="a62bfd57-f3b3-43db-9e49-0949fd5201d9" x="0" y="45" width="81" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Document Date : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="31" width="81" height="15"/>
+				<reportElement uuid="660653a6-1f9c-4c7f-b16d-4d20ed032738" x="0" y="31" width="81" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Warehouse : ]]></text>
 			</staticText>
 			<textField evaluationTime="Group" evaluationGroup="itemcode" pattern="dd/MM/yyyy">
-				<reportElement x="81" y="45" width="474" height="15"/>
+				<reportElement uuid="68e65395-d134-4be0-a3d3-48f991388b72" x="81" y="45" width="474" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{dateFilter}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dateFilter}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="60" width="25" height="20"/>
+				<reportElement uuid="fe5a0efb-db20-453f-97b3-5d9363af3288" x="0" y="60" width="25" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[No]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="60" width="555" height="1" forecolor="#999999"/>
+				<reportElement uuid="eb5e6517-8648-47a3-910c-68bfa0d98c7a" x="1" y="60" width="555" height="1" forecolor="#999999"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="0" y="16" width="81" height="15"/>
+				<reportElement uuid="32480dad-27c5-42a4-9460-e4bb785f0cb1" x="0" y="16" width="81" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Customer : ]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement x="81" y="16" width="474" height="15"/>
+				<reportElement uuid="ff06d278-0d6f-411c-ab42-c15918e5e318" x="81" y="16" width="474" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{custmrfilter}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{custmrfilter}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="1" width="81" height="15"/>
+				<reportElement uuid="53f4aadb-38ef-443d-aa7b-84a0ea9c94e1" x="0" y="1" width="81" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Filter By]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="25" y="60" width="56" height="20"/>
+				<reportElement uuid="1986f26a-9a9b-4e52-9e84-17d604c2f6ea" x="25" y="60" width="56" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{txtsortby2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{txtsortby2}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField pattern="###0">
-				<reportElement x="0" y="0" width="25" height="15"/>
+				<reportElement uuid="3cf099e3-aea7-4918-a5cb-58c1403a3df2" x="0" y="0" width="25" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Number"><![CDATA[$V{noku}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{noku}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="0" width="76" height="15"/>
+				<reportElement uuid="1af873ca-cd40-4ece-97f1-5446367c19ad" x="81" y="0" width="76" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemCode}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{itemCode}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="157" y="0" width="217" height="15"/>
+				<reportElement uuid="7984d4db-4ba0-46f5-91fe-bc9da260c654" x="157" y="0" width="217" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{itemName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{itemName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="445" y="0" width="110" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="ae56bc47-e956-4a31-a756-fb0f943e7dd5" x="445" y="0" width="110" height="15" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{refDocNum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{refDocNum}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="27" y="0" width="54" height="15"/>
+				<reportElement uuid="a731ce34-d9ae-47ef-9210-cb591b26bdc2" x="27" y="0" width="54" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{sortby2desc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sortby2desc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="383" y="0" width="52" height="15"/>
+				<reportElement uuid="3de80410-099b-421d-85dd-547f917cfdee" x="383" y="0" width="52" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Number"><![CDATA[$F{totQty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totQty}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -370,13 +340,13 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 	<pageFooter>
 		<band height="35" splitType="Stretch">
 			<line>
-				<reportElement x="2" y="0" width="555" height="1" forecolor="#999999"/>
+				<reportElement uuid="5ef23180-fca1-4228-b64b-b551f48934e6" x="2" y="0" width="555" height="1" forecolor="#999999"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="staticText-11" x="376" y="19" width="179" height="16"/>
+				<reportElement uuid="df4bdbf1-0b83-4261-8100-5980869da926" key="staticText-11" x="376" y="19" width="179" height="16"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -389,7 +359,7 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 				<text><![CDATA[stock_card_wms]]></text>
 			</staticText>
 			<textField evaluationTime="Report" pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
-				<reportElement key="textField-5" x="239" y="1" width="100" height="18"/>
+				<reportElement uuid="32ac0743-5e12-49e6-ae7c-1ecf8b26b252" key="textField-5" x="239" y="1" width="100" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -399,10 +369,10 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-12" x="150" y="1" width="88" height="18"/>
+				<reportElement uuid="121f1e7a-c2c3-404a-8fd5-5faee0b75111" key="staticText-12" x="150" y="1" width="88" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -415,7 +385,7 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 				<text><![CDATA[Tanggal Cetak :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-4" x="376" y="2" width="179" height="18"/>
+				<reportElement uuid="eeaa652e-05aa-40a2-a089-fb35ff0206fd" key="textField-4" x="376" y="2" width="179" height="18"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -425,10 +395,10 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["User : "+$P{audituser}+""]]></textFieldExpression>
+				<textFieldExpression><![CDATA["User : "+$P{audituser}+""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-2" x="0" y="2" width="47" height="14"/>
+				<reportElement uuid="d9d9be61-da14-4b0a-934f-b58496af13a6" key="textField-2" x="0" y="2" width="47" height="14"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -438,10 +408,10 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" isBlankWhenNull="false">
-				<reportElement key="textField-3" x="47" y="2" width="43" height="14"/>
+				<reportElement uuid="7cf3e6d8-1d3a-417d-8329-3f9ee4704f1e" key="textField-3" x="47" y="2" width="43" height="14"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -451,7 +421,7 @@ GROUP BY IF($P{sortby}='1',a.custmrCode,a.whsCode),a.itemCode]]>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
