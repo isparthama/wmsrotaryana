@@ -48,7 +48,7 @@
 	<variable name="GTotStock" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{price}]]></variableExpression>
 	</variable>
-	<!--<filterExpression><![CDATA[$F{price}!=new Double(0)]]></filterExpression>-->
+	<filterExpression><![CDATA[$F{price}!=0]]></filterExpression>
 	<group name="BrandCode">
 		<groupExpression><![CDATA[$F{brandcode}]]></groupExpression>
 		<groupHeader>
@@ -230,7 +230,7 @@
 	</lastPageFooter>
 	<summary>
 		<band splitType="Stretch">
-			<!--<printWhenExpression><![CDATA[( $P{optDtlCode}.equals( "" ) ? true : false )]]></printWhenExpression>-->
+			<printWhenExpression><![CDATA[( $P{optDtlCode}.equals( "" ) ? true : false )]]></printWhenExpression>
 		</band>
 	</summary>
 </jasperReport>
